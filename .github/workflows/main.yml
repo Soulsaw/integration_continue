@@ -1,0 +1,27 @@
+name: calculatrice
+# On veut que l'outil se declenche lorsqu'on fait un push sur la branch master
+on:
+  push:
+    branches: ["master"]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: installation de python
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.10"
+  
+    - name: installation des dependences
+      run: |
+        pip install -r requirements.txt
+
+    - name: execution des test
+      run: |
+        pytest test.py
